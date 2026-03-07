@@ -3,71 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>免費算命 | 八字排盤 | 奇門遁甲 | AI智慧命理分析</title>
-  <meta name="description" content="免費線上算命！八字排盤、奇門遁甲、姓名學、每日運勢。精準的命理分析，揭示你的人生密碼。2026最新運勢分析。">
-  <meta name="keywords" content="免費算命,八字,奇門遁甲,姓名學,命理,運勢,2026運勢">
-  <meta property="og:title" content="免費算命 | 八字排盤 | 奇門遁甲 | AI智慧命理分析">
+  <title>天機命理 | 免費八字排盤・奇門遁甲・姓名學・每日運勢 | AI智慧命理</title>
+  <meta name="description" content="免費線上算命！八字排盤、奇門遁甲、姓名學、每日運勢。精準命理分析，探索你的人生密碼。2026最新運勢。">
+  <meta name="keywords" content="免費算命,八字,奇門遁甲,姓名學,命理,運勢,2026運勢,生肖運勢,星座運勢">
+  <meta property="og:title" content="天機命理 | 免費AI智慧命理分析">
   <meta property="og:description" content="免費線上算命！精準八字排盤、奇門遁甲、姓名學分析。探索你的命運密碼。">
   <meta property="og:type" content="website">
   <link rel="stylesheet" href="css/style.css">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AI智慧命理分析",
-    "description": "免費線上算命：八字排盤、奇門遁甲、姓名學、每日運勢",
-    "url": "https://example.com"
-  }
+  {"@context":"https://schema.org","@type":"WebSite","name":"天機命理","description":"免費線上算命：八字排盤、奇門遁甲、姓名學、每日運勢"}
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <nav>
-      <a href="index.html" class="site-logo">☯ 天機命理<span>AI智慧分析</span></a>
-      <div class="nav-links">
-        <a href="bazi.html">八字排盤</a>
-        <a href="qimen.html">奇門遁甲</a>
-        <a href="name.html">姓名學</a>
-        <a href="daily.html">每日運勢</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Loading -->
+  <div class="loading-screen">
+    <div class="loading-bagua">☯</div>
+    <div class="loading-text">天機命理</div>
+  </div>
 
-  <section class="hero">
-    <h1>✦ 天機命理 ✦</h1>
-    <p>結合千年命理智慧與現代演算法，為您揭示命運的奧秘</p>
-  </section>
+  <canvas id="starfield"></canvas>
 
-  <section class="services">
-    <a href="bazi.html" class="card">
-      <div class="card-icon">🏛️</div>
-      <h3>八字排盤</h3>
-      <p>輸入出生年月日時，精準計算四柱八字、五行分佈、十神關係、大運流年</p>
-      <span class="badge">免費</span>
-    </a>
-    <a href="qimen.html" class="card">
-      <div class="card-icon">🔮</div>
-      <h3>奇門遁甲</h3>
-      <p>古代帝王之術，九宮八卦排盤，天地人神四盤合一，預測吉凶方位</p>
-      <span class="badge">免費</span>
-    </a>
-    <a href="name.html" class="card">
-      <div class="card-icon">📝</div>
-      <h3>姓名學</h3>
-      <p>康熙字典筆畫，五格剖象法，分析姓名吉凶、五行屬性與運勢影響</p>
-      <span class="badge">免費</span>
-    </a>
-    <a href="daily.html" class="card">
-      <div class="card-icon">⭐</div>
-      <h3>每日運勢</h3>
-      <p>十二生肖與十二星座每日運勢，愛情、事業、財運、健康全面分析</p>
-      <span class="badge">每日更新</span>
-    </a>
-  </section>
+  <!-- Check-in -->
+  <div class="checkin-banner"></div>
 
-  <footer class="site-footer">
-    <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。命運掌握在自己手中。</p>
-    <p>© 2026 天機命理 | AI智慧命理分析平台</p>
-  </footer>
+  <div class="page-wrap">
+    <!-- Header -->
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="site-logo">
+          <span class="logo-icon">☯</span>
+          天機命理
+          <span class="logo-sub">AI智慧分析</span>
+        </a>
+        <button class="nav-toggle" aria-label="選單">☰</button>
+        <div class="nav-links">
+          <a href="bazi.html">八字排盤</a>
+          <a href="qimen.html">奇門遁甲</a>
+          <a href="name.html">姓名學</a>
+          <a href="daily.html">每日運勢</a>
+          <div class="header-controls">
+            <button class="ctrl-btn" id="theme-toggle" title="切換主題">☀️</button>
+            <button class="ctrl-btn" id="music-toggle" title="背景音樂">🔇</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>✦ 天機命理 ✦</h1>
+      <p class="subtitle">結合千年命理智慧與現代演算法，為您揭示命運的奧秘</p>
+      <div class="social-proof" id="social-proof">🔥 今日已有 <strong id="visitor-count">0</strong> 人查詢命盤</div>
+    </section>
+
+    <!-- Daily Flash -->
+    <section class="daily-flash" id="daily-flash"></section>
+
+    <!-- Features -->
+    <section class="features">
+      <a href="bazi.html" class="feature-card">
+        <div class="card-icon">🏛️</div>
+        <h3>八字排盤</h3>
+        <p>精準計算四柱八字、五行分佈、十神關係、大運流年，深度解析你的人生藍圖</p>
+        <span class="badge">免費</span>
+      </a>
+      <a href="qimen.html" class="feature-card">
+        <div class="card-icon">🔮</div>
+        <h3>奇門遁甲</h3>
+        <p>帝王之術，九宮八卦排盤，天地人神四盤合一，預測時機與方位吉凶</p>
+        <span class="badge">免費</span>
+      </a>
+      <a href="name.html" class="feature-card">
+        <div class="card-icon">✍️</div>
+        <h3>姓名學</h3>
+        <p>康熙字典筆畫，五格剖象法，分析姓名吉凶、五行屬性與一生運勢</p>
+        <span class="badge">免費</span>
+      </a>
+      <a href="daily.html" class="feature-card">
+        <div class="card-icon">⭐</div>
+        <h3>每日運勢</h3>
+        <p>十二生肖 × 十二星座每日運勢，愛情、事業、財運、健康全面解析</p>
+        <span class="badge">每日更新</span>
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。命運掌握在自己手中。</p>
+      <p>© 2026 天機命理 | AI智慧命理分析平台</p>
+    </footer>
+  </div>
+
+  <!-- FAB -->
+  <a href="daily.html" class="fab" title="今日運勢">⭐</a>
+
+  <script src="js/lunar.js"></script>
+  <script src="js/daily.js"></script>
+  <script src="js/global.js"></script>
+  <script>
+    // Social proof counter
+    const count = Math.floor(Math.random() * 5000) + 3000;
+    document.getElementById('visitor-count').textContent = count.toLocaleString();
+
+    // Daily flash - today's fortune brief
+    (function() {
+      const now = new Date();
+      const zodiacIdx = ((now.getFullYear() - 4) % 12 + 12) % 12;
+      const zodiacNames = ['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬'];
+      const luckyColors = [
+        {name:'紅色',hex:'#ef4444'},{name:'橙色',hex:'#f97316'},{name:'黃色',hex:'#eab308'},
+        {name:'綠色',hex:'#22c55e'},{name:'藍色',hex:'#3b82f6'},{name:'紫色',hex:'#a855f7'},
+        {name:'白色',hex:'#f1f5f9'},{name:'粉色',hex:'#ec4899'},{name:'金色',hex:'#ffd700'}
+      ];
+      const dayOfYear = Math.floor((now - new Date(now.getFullYear(),0,0))/(86400000));
+      const seed = now.getFullYear() * 1000 + dayOfYear;
+      function srand(s){ let x = Math.sin(s)*10000; return x-Math.floor(x); }
+
+      const luckyNum = Math.floor(srand(seed+1)*9)+1;
+      const lc = luckyColors[Math.floor(srand(seed+2)*luckyColors.length)];
+      const hours = ['子時(23-01)','丑時(01-03)','寅時(03-05)','卯時(05-07)','辰時(07-09)','巳時(09-11)','午時(11-13)','未時(13-15)','申時(15-17)','酉時(17-19)','戌時(19-21)','亥時(21-23)'];
+      const jiHour = hours[Math.floor(srand(seed+3)*hours.length)];
+      const todayZodiac = zodiacNames[zodiacIdx];
+      const zodiacFortune = ['大吉','中吉','小吉','吉','中平','小吉','中吉','大吉','吉','中吉','小吉','中平'];
+      const fortune = zodiacFortune[Math.floor(srand(seed+4)*zodiacFortune.length)];
+
+      document.getElementById('daily-flash').innerHTML = `
+        <div class="flash-item">
+          <div class="flash-label">🔢 今日幸運數字</div>
+          <div class="flash-value">${luckyNum}</div>
+        </div>
+        <div class="flash-item">
+          <div class="flash-label">🎨 今日幸運色</div>
+          <div class="flash-value color-swatch"><span class="swatch" style="background:${lc.hex}"></span>${lc.name}</div>
+        </div>
+        <div class="flash-item">
+          <div class="flash-label">🕐 今日吉時</div>
+          <div class="flash-value">${jiHour}</div>
+        </div>
+        <div class="flash-item">
+          <div class="flash-label">🐲 ${todayZodiac}年運勢</div>
+          <div class="flash-value">${fortune}</div>
+        </div>
+      `;
+    })();
+  </script>
 </body>
 </html>

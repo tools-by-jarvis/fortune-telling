@@ -3,119 +3,146 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>每日運勢 - 十二生肖星座運勢 | 天機命理</title>
-  <meta name="description" content="每日更新！十二生肖、十二星座今日運勢。愛情、事業、財運、健康全面分析。">
+  <title>每日運勢 - 十二生肖 × 十二星座 | 天機命理</title>
+  <meta name="description" content="每日運勢！十二生肖、十二星座今日運勢全面分析：愛情、事業、財運、健康。每天更新。">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav>
-      <a href="index.html" class="site-logo">☯ 天機命理</a>
-      <div class="nav-links">
-        <a href="bazi.html">八字排盤</a>
-        <a href="qimen.html">奇門遁甲</a>
-        <a href="name.html">姓名學</a>
-        <a href="daily.html" class="active">每日運勢</a>
+  <div class="loading-screen"><div class="loading-bagua">☯</div><div class="loading-text">算運中...</div></div>
+  <canvas id="starfield"></canvas>
+  <div class="checkin-banner"></div>
+  <div class="page-wrap">
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="site-logo"><span class="logo-icon">☯</span>天機命理</a>
+        <button class="nav-toggle">☰</button>
+        <div class="nav-links">
+          <a href="bazi.html">八字排盤</a>
+          <a href="qimen.html">奇門遁甲</a>
+          <a href="name.html">姓名學</a>
+          <a href="daily.html" class="active">每日運勢</a>
+          <div class="header-controls">
+            <button class="ctrl-btn" id="theme-toggle">☀️</button>
+            <button class="ctrl-btn" id="music-toggle">🔇</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="page-container">
+      <h1 class="page-title">⭐ 每日運勢</h1>
+      <p class="page-subtitle" id="date-display"></p>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('chinese',this)">🐲 十二生肖</button>
+        <button class="tab-btn" onclick="switchTab('western',this)">♈ 十二星座</button>
       </div>
-    </nav>
-  </header>
 
-  <div class="page-container">
-    <h1 class="page-title">⭐ 每日運勢</h1>
-    <p class="page-subtitle" id="today-date"></p>
+      <!-- Chinese Zodiac Grid -->
+      <div id="chinese-tab">
+        <div class="zodiac-grid" id="chinese-grid"></div>
+      </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('chinese')">🐉 十二生肖</button>
-      <button class="tab-btn" onclick="switchTab('western')">♈ 十二星座</button>
+      <!-- Western Zodiac Grid -->
+      <div id="western-tab" style="display:none;">
+        <div class="zodiac-grid" id="western-grid"></div>
+      </div>
+
+      <!-- Fortune Detail -->
+      <div id="fortune-detail"></div>
     </div>
 
-    <!-- Zodiac selector -->
-    <div class="zodiac-selector" id="zodiac-selector"></div>
-
-    <!-- Fortune display -->
-    <div id="fortune-display"></div>
+    <footer class="site-footer">
+      <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。</p>
+      <p>© 2026 天機命理</p>
+    </footer>
   </div>
-
-  <footer class="site-footer">
-    <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。</p>
-  </footer>
 
   <script src="js/lunar.js"></script>
   <script src="js/daily.js"></script>
+  <script src="js/global.js"></script>
   <script>
-    let currentType = 'chinese';
-    let currentSign = 0;
-
-    // Set today's date
     const today = new Date();
-    const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
-    document.getElementById('today-date').textContent = dateStr;
+    const dateStr = today.toISOString().slice(0,10);
+    const weekdays = ['日','一','二','三','四','五','六'];
+    document.getElementById('date-display').textContent =
+      `${today.getFullYear()} 年 ${today.getMonth()+1} 月 ${today.getDate()} 日 星期${weekdays[today.getDay()]}`;
 
-    function switchTab(type) {
-      currentType = type;
-      currentSign = 0;
-      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', (i===0 && type==='chinese') || (i===1 && type==='western'));
-      });
-      renderSelector();
-      renderFortune();
-    }
+    let currentType = 'chinese';
+    let currentIdx = null;
 
-    function renderSelector() {
-      const signs = currentType === 'chinese' ? DailyFortune.ZODIAC_SIGNS : DailyFortune.WESTERN_SIGNS;
-      const emojis = currentType === 'chinese' ? DailyFortune.ZODIAC_EMOJI : DailyFortune.WESTERN_EMOJI;
-      let html = '';
-      signs.forEach((s, i) => {
-        html += `<button class="zodiac-btn ${i===currentSign?'active':''}" onclick="selectSign(${i})">${emojis[i]} ${s}</button>`;
-      });
-      document.getElementById('zodiac-selector').innerHTML = html;
-    }
-
-    function selectSign(idx) {
-      currentSign = idx;
-      document.querySelectorAll('.zodiac-btn').forEach((btn, i) => btn.classList.toggle('active', i===idx));
-      renderFortune();
-    }
-
-    function renderFortune() {
-      const dateIso = today.toISOString().slice(0,10);
-      const fortune = DailyFortune.generate(currentSign, currentType, dateIso);
-
-      let html = `<div class="fortune-card">
-        <div style="font-size:3rem;">${fortune.emoji}</div>
-        <h3>${fortune.sign} · 今日運勢</h3>
+    // Build Chinese zodiac grid
+    const cGrid = document.getElementById('chinese-grid');
+    DailyFortune.ZODIAC_SIGNS.forEach((name, i) => {
+      cGrid.innerHTML += `<div class="zodiac-item" onclick="showFortune(${i},'chinese',this)" data-idx="${i}">
+        <span class="z-emoji">${DailyFortune.ZODIAC_EMOJI[i]}</span>
+        <span class="z-name">${name}</span>
       </div>`;
+    });
 
-      fortune.aspects.forEach(a => {
-        const stars = '★'.repeat(a.stars) + '☆'.repeat(5 - a.stars);
-        html += `<div class="info-box">
-          <h4>${a.name}</h4>
-          <div class="fortune-stars">${stars}</div>
-          <p>${a.text}</p>
+    // Build Western zodiac grid
+    const wGrid = document.getElementById('western-grid');
+    DailyFortune.WESTERN_SIGNS.forEach((name, i) => {
+      wGrid.innerHTML += `<div class="zodiac-item" onclick="showFortune(${i},'western',this)" data-idx="${i}">
+        <span class="z-emoji">${DailyFortune.WESTERN_EMOJI[i]}</span>
+        <span class="z-name">${name}</span>
+      </div>`;
+    });
+
+    function switchTab(type, btn) {
+      currentType = type;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('chinese-tab').style.display = type==='chinese'?'block':'none';
+      document.getElementById('western-tab').style.display = type==='western'?'block':'none';
+      document.getElementById('fortune-detail').innerHTML = '';
+    }
+
+    function showFortune(idx, type, el) {
+      // Toggle active state
+      const container = type==='chinese'?'chinese-grid':'western-grid';
+      document.querySelectorAll(`#${container} .zodiac-item`).forEach(z => z.classList.remove('active'));
+      el.classList.add('active');
+
+      const f = DailyFortune.generate(idx, type, dateStr);
+      const starsStr = n => '★'.repeat(n) + '☆'.repeat(5-n);
+
+      const colorMap = {'紅色':'#ef4444','橙色':'#f97316','黃色':'#eab308','綠色':'#22c55e','藍色':'#3b82f6','紫色':'#a855f7','白色':'#f1f5f9','粉色':'#ec4899','金色':'#ffd700','黑色':'#374151'};
+      const lcHex = colorMap[f.luckyColor] || '#ffd700';
+
+      let html = `<div class="fortune-detail">
+        <h3>${f.emoji} ${f.sign} 今日運勢</h3>`;
+
+      f.aspects.forEach(a => {
+        html += `<div class="fortune-aspect">
+          <span class="aspect-name">${a.name}</span>
+          <span class="aspect-stars">${starsStr(a.stars)}</span>
+          <span class="aspect-text">${a.text}</span>
         </div>`;
       });
 
-      html += `<div class="info-box">
-        <h4>🍀 今日開運</h4>
-        <p>幸運色：<strong style="color:var(--gold)">${fortune.luckyColor}</strong>　
-        幸運數字：<strong style="color:var(--gold)">${fortune.luckyNumber}</strong>　
-        幸運方位：<strong style="color:var(--gold)">${fortune.luckyDirection}</strong></p>
+      html += `<div class="fortune-lucky">
+        <div class="lucky-item"><div class="lucky-label">幸運數字</div><div class="lucky-value">${f.luckyNumber}</div></div>
+        <div class="lucky-item"><div class="lucky-label">幸運色</div><div class="lucky-value" style="display:flex;align-items:center;gap:0.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${lcHex};border:1px solid rgba(255,255,255,0.2);"></span>${f.luckyColor}</div></div>
+        <div class="lucky-item"><div class="lucky-label">吉利方位</div><div class="lucky-value">${f.luckyDirection}</div></div>
       </div>`;
 
-      // Share buttons
-      const shareText = encodeURIComponent(`${fortune.sign}今日運勢 ${'★'.repeat(fortune.ratings[0])}${'☆'.repeat(5-fortune.ratings[0])} - 天機命理`);
-      html += `<div style="text-align:center;margin-top:1rem;">
-        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?quote=${shareText}" target="_blank">📘 分享Facebook</a>
-        <a class="share-btn" href="https://line.me/R/msg/text/?${shareText}" target="_blank">💬 分享LINE</a>
-        <button class="share-btn" onclick="navigator.clipboard.writeText(decodeURIComponent('${shareText}')).then(()=>alert('已複製！'))">📋 複製文字</button>
+      // Tomorrow teaser
+      const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate()+1);
+      const tomorrowStr = tomorrow.toISOString().slice(0,10);
+      const tf = DailyFortune.generate(idx, type, tomorrowStr);
+      const avgStars = Math.round(tf.ratings.reduce((a,b)=>a+b,0)/tf.ratings.length);
+      html += `<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);text-align:center;">
+        <div style="font-size:0.8rem;color:var(--text-muted);">🔮 明日預告</div>
+        <div style="color:var(--gold);font-size:1.1rem;margin-top:0.3rem;">${starsStr(avgStars)}</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);">明天再來看完整運勢吧！</div>
       </div>`;
 
-      document.getElementById('fortune-display').innerHTML = html;
+      html += '</div>';
+      document.getElementById('fortune-detail').innerHTML = html;
+      document.getElementById('fortune-detail').scrollIntoView({behavior:'smooth',block:'nearest'});
     }
-
-    renderSelector();
-    renderFortune();
   </script>
 </body>
 </html>
