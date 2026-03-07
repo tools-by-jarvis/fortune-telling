@@ -1,0 +1,306 @@
+/* ===== Fortune Site - Dark Mystical Theme ===== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg-primary: #0a0a12;
+  --bg-secondary: #12121f;
+  --bg-card: #1a1a2e;
+  --bg-card-hover: #22223a;
+  --gold: #d4a843;
+  --gold-light: #f0d078;
+  --gold-dark: #a07830;
+  --purple: #6a3093;
+  --purple-light: #8e44ad;
+  --purple-dark: #4a1a6b;
+  --text-primary: #e8e0d0;
+  --text-secondary: #a89880;
+  --text-muted: #706050;
+  --red: #c0392b;
+  --green: #27ae60;
+  --blue: #2980b9;
+  --border: #2a2a40;
+  --shadow: 0 4px 20px rgba(0,0,0,0.5);
+  --glow: 0 0 20px rgba(212,168,67,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+/* ===== Header / Nav ===== */
+.site-header {
+  background: linear-gradient(180deg, var(--bg-secondary), transparent);
+  padding: 1rem 2rem;
+  position: sticky; top:0; z-index:100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header nav {
+  max-width: 1200px; margin:0 auto;
+  display: flex; align-items:center; justify-content:space-between;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.site-logo {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5rem; font-weight:900;
+  color: var(--gold);
+  text-decoration:none;
+  text-shadow: var(--glow);
+}
+.site-logo span { font-size:0.8em; color:var(--text-secondary); font-weight:400; margin-left:0.5rem; }
+.nav-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
+.nav-links a {
+  color: var(--text-secondary); text-decoration:none;
+  font-size:0.95rem; transition:color 0.3s;
+}
+.nav-links a:hover, .nav-links a.active { color:var(--gold); }
+
+/* ===== Hero ===== */
+.hero {
+  text-align:center; padding:4rem 2rem 3rem;
+  background: radial-gradient(ellipse at center, rgba(106,48,147,0.15) 0%, transparent 70%);
+}
+.hero h1 {
+  font-family:'Noto Serif TC',serif; font-size:2.8rem; font-weight:900;
+  color:var(--gold); margin-bottom:0.5rem;
+  text-shadow: 0 0 30px rgba(212,168,67,0.4);
+}
+.hero p { color:var(--text-secondary); font-size:1.1rem; max-width:600px; margin:0 auto; }
+
+/* ===== Service Cards ===== */
+.services { max-width:1100px; margin:0 auto; padding:2rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; }
+.card {
+  background: var(--bg-card); border:1px solid var(--border);
+  border-radius:12px; padding:2rem; text-align:center;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  text-decoration:none; color:inherit; display:block;
+}
+.card:hover { transform:translateY(-4px); box-shadow:var(--glow); border-color:var(--gold-dark); }
+.card-icon { font-size:3rem; margin-bottom:1rem; }
+.card h3 { font-family:'Noto Serif TC',serif; color:var(--gold); font-size:1.3rem; margin-bottom:0.5rem; }
+.card p { color:var(--text-secondary); font-size:0.9rem; }
+.card .badge { display:inline-block; background:var(--green); color:#fff; font-size:0.75rem; padding:0.15rem 0.5rem; border-radius:4px; margin-top:0.5rem; }
+
+/* ===== Page Layout ===== */
+.page-container { max-width:900px; margin:0 auto; padding:2rem; }
+.page-title {
+  font-family:'Noto Serif TC',serif; font-size:2rem; color:var(--gold);
+  text-align:center; margin-bottom:0.5rem;
+}
+.page-subtitle { text-align:center; color:var(--text-secondary); margin-bottom:2rem; }
+
+/* ===== Forms ===== */
+.form-group { margin-bottom:1.2rem; }
+.form-group label { display:block; color:var(--gold); font-size:0.9rem; margin-bottom:0.3rem; }
+.form-row { display:flex; gap:1rem; flex-wrap:wrap; }
+.form-row .form-group { flex:1; min-width:120px; }
+input[type="number"], input[type="text"], input[type="date"], select {
+  width:100%; padding:0.7rem 1rem;
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:8px; color:var(--text-primary); font-size:1rem;
+  font-family:inherit; transition:border-color 0.3s;
+}
+input:focus, select:focus { outline:none; border-color:var(--gold); }
+
+.radio-group { display:flex; gap:1rem; margin-top:0.3rem; }
+.radio-group label {
+  display:flex; align-items:center; gap:0.3rem;
+  color:var(--text-primary); cursor:pointer; font-size:1rem;
+}
+.radio-group input[type="radio"] { accent-color:var(--gold); }
+
+.btn {
+  display:inline-block; padding:0.8rem 2rem;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color:#0a0a12; font-weight:700; font-size:1rem;
+  border:none; border-radius:8px; cursor:pointer;
+  font-family:inherit; transition:transform 0.2s, box-shadow 0.2s;
+  text-decoration:none;
+}
+.btn:hover { transform:translateY(-2px); box-shadow:var(--glow); }
+.btn:active { transform:translateY(0); }
+.btn-outline {
+  background:transparent; border:1px solid var(--gold);
+  color:var(--gold);
+}
+.btn-outline:hover { background:rgba(212,168,67,0.1); }
+.btn-center { display:block; margin:1.5rem auto 0; }
+.btn-paid {
+  background: linear-gradient(135deg, var(--purple-dark), var(--purple-light));
+  color:#fff; margin-top:1rem;
+}
+
+/* ===== Results ===== */
+.result-section { margin-top:2rem; display:none; }
+.result-section.visible { display:block; animation:fadeIn 0.5s; }
+
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== Ba Zi Pillars ===== */
+.pillars-container {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;
+  margin:1.5rem 0; text-align:center;
+}
+.pillar {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:10px; padding:1rem 0.5rem; position:relative;
+}
+.pillar-label { font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem; }
+.pillar-stem {
+  font-family:'Noto Serif TC',serif; font-size:2rem; font-weight:700;
+  margin-bottom:0.3rem;
+}
+.pillar-branch {
+  font-family:'Noto Serif TC',serif; font-size:2rem; font-weight:700;
+}
+.pillar-element { font-size:0.75rem; color:var(--text-secondary); margin-top:0.3rem; }
+
+/* Element colors */
+.e-wood { color:#4CAF50; }
+.e-fire { color:#f44336; }
+.e-earth { color:#FF9800; }
+.e-metal { color:#e0e0e0; }
+.e-water { color:#2196F3; }
+
+/* ===== Five Elements Bar ===== */
+.elements-bar { display:flex; gap:0.8rem; justify-content:center; margin:1.5rem 0; flex-wrap:wrap; }
+.element-item {
+  text-align:center; padding:0.5rem 1rem;
+  background:var(--bg-card); border-radius:8px;
+  min-width:70px; border:1px solid var(--border);
+}
+.element-item .count { font-size:1.5rem; font-weight:700; }
+.element-item .label { font-size:0.8rem; color:var(--text-secondary); }
+
+/* ===== Info Box ===== */
+.info-box {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:10px; padding:1.5rem; margin:1rem 0;
+}
+.info-box h4 { color:var(--gold); font-size:1rem; margin-bottom:0.8rem; font-family:'Noto Serif TC',serif; }
+.info-box p, .info-box li { color:var(--text-secondary); font-size:0.95rem; line-height:1.8; }
+.info-box ul { padding-left:1.2rem; }
+
+/* ===== Qi Men Grid ===== */
+.qimen-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:4px;
+  max-width:600px; margin:1.5rem auto;
+}
+.palace {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; padding:0.8rem 0.5rem;
+  text-align:center; min-height:120px;
+  display:flex; flex-direction:column; justify-content:center;
+  font-size:0.8rem; line-height:1.6;
+}
+.palace-num { font-weight:700; color:var(--gold); font-size:0.9rem; }
+.palace .star { color:#9b59b6; }
+.palace .door { color:#e74c3c; }
+.palace .deity { color:#3498db; }
+.palace .stem { color:var(--gold-light); }
+.palace-center { background:var(--bg-secondary); }
+
+/* ===== Name Result ===== */
+.name-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem;
+  margin:1.5rem 0;
+}
+.name-cell {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:10px; padding:1rem; text-align:center;
+}
+.name-cell .ge-name { font-size:0.85rem; color:var(--text-secondary); }
+.name-cell .strokes { font-size:2rem; font-weight:700; color:var(--gold); }
+.name-cell .fortune { font-size:0.9rem; font-weight:700; margin-top:0.3rem; }
+.fortune-ji { color:var(--green); }
+.fortune-xiong { color:var(--red); }
+.fortune-ban { color:#FF9800; }
+
+/* ===== Daily Fortune ===== */
+.zodiac-selector { display:flex; flex-wrap:wrap; gap:0.5rem; justify-content:center; margin:1rem 0; }
+.zodiac-btn {
+  padding:0.5rem 1rem; background:var(--bg-card); border:1px solid var(--border);
+  border-radius:8px; color:var(--text-secondary); cursor:pointer;
+  font-family:inherit; font-size:0.9rem; transition:all 0.3s;
+}
+.zodiac-btn:hover, .zodiac-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(212,168,67,0.1); }
+
+.fortune-card {
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:12px; padding:2rem; margin:1.5rem 0; text-align:center;
+}
+.fortune-card h3 { color:var(--gold); font-family:'Noto Serif TC',serif; font-size:1.3rem; }
+.fortune-stars { color:var(--gold); font-size:1.5rem; margin:0.5rem 0; letter-spacing:4px; }
+.fortune-text { color:var(--text-secondary); margin:0.8rem 0; line-height:1.8; }
+.share-btn {
+  display:inline-block; padding:0.5rem 1.2rem; margin:0.3rem;
+  background:var(--bg-secondary); border:1px solid var(--border);
+  border-radius:6px; color:var(--text-secondary); cursor:pointer;
+  font-family:inherit; font-size:0.85rem; text-decoration:none;
+  transition:all 0.3s;
+}
+.share-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ===== Ten Gods ===== */
+.ten-gods-table {
+  width:100%; border-collapse:collapse; margin:1rem 0;
+}
+.ten-gods-table th, .ten-gods-table td {
+  padding:0.5rem 0.8rem; border:1px solid var(--border);
+  text-align:center; font-size:0.9rem;
+}
+.ten-gods-table th { background:var(--bg-card); color:var(--gold); }
+.ten-gods-table td { color:var(--text-secondary); }
+
+/* ===== Disclaimer ===== */
+.disclaimer {
+  text-align:center; padding:2rem;
+  color:var(--text-muted); font-size:0.8rem;
+  border-top:1px solid var(--border); margin-top:3rem;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align:center; padding:2rem;
+  color:var(--text-muted); font-size:0.85rem;
+  border-top:1px solid var(--border);
+}
+.site-footer a { color:var(--gold-dark); text-decoration:none; }
+
+/* ===== Responsive ===== */
+@media (max-width:768px) {
+  .hero h1 { font-size:2rem; }
+  .pillars-container { grid-template-columns:repeat(4,1fr); gap:0.5rem; }
+  .pillar-stem, .pillar-branch { font-size:1.5rem; }
+  .site-header { padding:0.8rem 1rem; }
+  .nav-links { gap:0.8rem; }
+  .page-container { padding:1rem; }
+  .qimen-grid { gap:2px; }
+  .palace { padding:0.5rem 0.3rem; font-size:0.7rem; min-height:100px; }
+}
+@media (max-width:480px) {
+  .hero h1 { font-size:1.6rem; }
+  .services { grid-template-columns:1fr; }
+  .form-row { flex-direction:column; }
+}
+
+/* Loading spinner */
+.loading { text-align:center; padding:2rem; color:var(--text-secondary); }
+.loading::after { content:''; display:inline-block; width:20px; height:20px; border:2px solid var(--gold); border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite; margin-left:0.5rem; vertical-align:middle; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Tabs */
+.tabs { display:flex; gap:0; margin-bottom:1.5rem; border-bottom:1px solid var(--border); }
+.tab-btn {
+  padding:0.7rem 1.5rem; background:none; border:none; border-bottom:2px solid transparent;
+  color:var(--text-secondary); cursor:pointer; font-family:inherit; font-size:0.95rem;
+  transition:all 0.3s;
+}
+.tab-btn:hover { color:var(--text-primary); }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }

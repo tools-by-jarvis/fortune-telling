@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>八字排盤 - 免費線上四柱八字算命 | 天機命理</title>
+  <meta name="description" content="免費八字排盤！輸入出生年月日時，自動計算四柱八字、五行分佈、十神、大運。專業命理分析。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="index.html" class="site-logo">☯ 天機命理</a>
+      <div class="nav-links">
+        <a href="bazi.html" class="active">八字排盤</a>
+        <a href="qimen.html">奇門遁甲</a>
+        <a href="name.html">姓名學</a>
+        <a href="daily.html">每日運勢</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <h1 class="page-title">🏛️ 八字排盤</h1>
+    <p class="page-subtitle">輸入您的出生資料，揭示四柱八字的命運密碼</p>
+
+    <div class="info-box">
+      <div class="form-row">
+        <div class="form-group">
+          <label>出生年（西元）</label>
+          <input type="number" id="birth-year" min="1920" max="2050" value="1990" placeholder="1990">
+        </div>
+        <div class="form-group">
+          <label>月</label>
+          <select id="birth-month">
+            <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
+            <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
+            <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
+            <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>日</label>
+          <select id="birth-day"></select>
+        </div>
+        <div class="form-group">
+          <label>時辰</label>
+          <select id="birth-hour">
+            <option value="0">子時 (23-01)</option>
+            <option value="1">丑時 (01-03)</option>
+            <option value="3">寅時 (03-05)</option>
+            <option value="5">卯時 (05-07)</option>
+            <option value="7">辰時 (07-09)</option>
+            <option value="9">巳時 (09-11)</option>
+            <option value="11">午時 (11-13)</option>
+            <option value="13">未時 (13-15)</option>
+            <option value="15">申時 (15-17)</option>
+            <option value="17">酉時 (17-19)</option>
+            <option value="19">戌時 (19-21)</option>
+            <option value="21">亥時 (21-23)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>性別</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="男" checked> 男</label>
+          <label><input type="radio" name="gender" value="女"> 女</label>
+        </div>
+      </div>
+      <button class="btn btn-center" onclick="doBaZi()">開始排盤 ✦</button>
+    </div>
+
+    <!-- Results -->
+    <div id="result" class="result-section">
+      <h2 style="text-align:center;color:var(--gold);margin-bottom:1rem;">四柱八字</h2>
+
+      <!-- Pillars -->
+      <div class="pillars-container" id="pillars"></div>
+
+      <!-- Five Elements -->
+      <h3 style="text-align:center;color:var(--text-secondary);margin:1.5rem 0 0.5rem;">五行分佈</h3>
+      <div class="elements-bar" id="elements"></div>
+
+      <!-- Day Master Analysis -->
+      <div class="info-box" id="strength-box"></div>
+
+      <!-- 用神 -->
+      <div class="info-box" id="yongshen-box"></div>
+
+      <!-- Ten Gods Table -->
+      <div class="info-box" id="tengods-box"></div>
+
+      <!-- 大運 -->
+      <div class="info-box" id="dayun-box"></div>
+
+      <!-- Interpretation -->
+      <div class="info-box" id="personality-box"></div>
+      <div class="info-box" id="career-box"></div>
+      <div class="info-box" id="wealth-box"></div>
+      <div class="info-box" id="relation-box"></div>
+
+      <!-- Paid CTA -->
+      <div style="text-align:center;margin-top:2rem;">
+        <button class="btn btn-paid" onclick="alert('詳批報告功能即將推出，敬請期待！')">🔒 取得詳批報告（即將推出）</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。</p>
+  </footer>
+
+  <script src="js/lunar.js"></script>
+  <script src="js/bazi.js"></script>
+  <script>
+    // Populate day select
+    const daySelect = document.getElementById('birth-day');
+    for (let i = 1; i <= 31; i++) {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = i + '日';
+      if (i === 15) opt.selected = true;
+      daySelect.appendChild(opt);
+    }
+
+    function doBaZi() {
+      const year = parseInt(document.getElementById('birth-year').value);
+      const month = parseInt(document.getElementById('birth-month').value);
+      const day = parseInt(document.getElementById('birth-day').value);
+      const hour = parseInt(document.getElementById('birth-hour').value);
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+
+      const result = BaZi.calculate(year, month, day, hour, gender);
+      renderResult(result);
+    }
+
+    function renderResult(r) {
+      document.getElementById('result').classList.add('visible');
+
+      // Pillars
+      const pillarLabels = ['年柱','月柱','日柱','時柱'];
+      const pillarGodLabels = ['年干','月干','日主','時干'];
+      let html = '';
+      r.pillars.forEach((p, i) => {
+        const ganWx = Lunar.ganWuXing(p.ganIdx);
+        const zhiWx = Lunar.zhiWuXing(p.zhiIdx);
+        html += `<div class="pillar">
+          <div class="pillar-label">${pillarLabels[i]}${i===2?' (日主)':''}</div>
+          <div class="pillar-stem ${Lunar.elementClass(ganWx)}">${Lunar.TIAN_GAN[p.ganIdx]}</div>
+          <div class="pillar-element">${ganWx} · ${r.tenGods[i]}</div>
+          <div class="pillar-branch ${Lunar.elementClass(zhiWx)}">${Lunar.DI_ZHI[p.zhiIdx]}</div>
+          <div class="pillar-element">${zhiWx} · ${r.naYins[i]}</div>
+          <div class="pillar-element" style="font-size:0.7rem;margin-top:4px;">
+            藏: ${r.hiddenStems[i].map(h => `<span class="${Lunar.elementClass(h.wuxing)}">${h.gan}${h.tenGod}</span>`).join(' ')}
+          </div>
+        </div>`;
+      });
+      document.getElementById('pillars').innerHTML = html;
+
+      // Five elements
+      const wxColors = {'金':'#e0e0e0','木':'#4CAF50','水':'#2196F3','火':'#f44336','土':'#FF9800'};
+      html = '';
+      ['金','木','水','火','土'].forEach(wx => {
+        html += `<div class="element-item">
+          <div class="count" style="color:${wxColors[wx]}">${r.wuxing[wx]}</div>
+          <div class="label">${wx}</div>
+        </div>`;
+      });
+      document.getElementById('elements').innerHTML = html;
+
+      // Strength
+      document.getElementById('strength-box').innerHTML = `
+        <h4>📊 日主分析</h4>
+        <p>日主：<strong class="${Lunar.elementClass(r.dayMasterWx)}">${r.dayMaster}${r.dayMasterWx}</strong>
+        　生肖：${r.zodiac}　時辰：${r.shiChen}</p>
+        <p>${r.strength.description}</p>`;
+
+      // 用神
+      document.getElementById('yongshen-box').innerHTML = `
+        <h4>🎯 用神分析</h4>
+        <p>${r.yongShen.description}</p>`;
+
+      // Ten Gods summary
+      document.getElementById('tengods-box').innerHTML = `
+        <h4>⚖️ 十神概覽</h4>
+        <table class="ten-gods-table">
+          <tr><th></th><th>年柱</th><th>月柱</th><th>日柱</th><th>時柱</th></tr>
+          <tr><td>天干</td>${r.tenGods.map(g => `<td>${g}</td>`).join('')}</tr>
+          <tr><td>藏干</td>${r.hiddenStems.map(hs => `<td>${hs.map(h=>h.tenGod).join('<br>')}</td>`).join('')}</tr>
+        </table>`;
+
+      // 大運
+      html = `<h4>🔄 大運（${r.daYun.forward?'順行':'逆行'}，${r.daYun.startAge}歲起運）</h4><div style="display:flex;gap:0.5rem;flex-wrap:wrap;">`;
+      r.daYun.list.forEach(dy => {
+        html += `<div style="text-align:center;padding:0.5rem;background:var(--bg-secondary);border-radius:6px;min-width:60px;">
+          <div style="color:var(--gold);font-weight:700;">${dy.text}</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">${dy.startAge}-${dy.endAge}歲</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);">${dy.startYear}年起</div>
+        </div>`;
+      });
+      html += '</div>';
+      document.getElementById('dayun-box').innerHTML = html;
+
+      // Interpretations
+      document.getElementById('personality-box').innerHTML = `<h4>👤 性格特質</h4><p>${r.interpretation.personality}</p>`;
+      document.getElementById('career-box').innerHTML = `<h4>💼 事業分析</h4><p>${r.interpretation.career}</p>`;
+      document.getElementById('wealth-box').innerHTML = `<h4>💰 財運分析</h4><p>${r.interpretation.wealth}</p>`;
+      document.getElementById('relation-box').innerHTML = `<h4>❤️ 感情分析</h4><p>${r.interpretation.relationship}</p>`;
+    }
+  </script>
+</body>
+</html>

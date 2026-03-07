@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日運勢 - 十二生肖星座運勢 | 天機命理</title>
+  <meta name="description" content="每日更新！十二生肖、十二星座今日運勢。愛情、事業、財運、健康全面分析。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="index.html" class="site-logo">☯ 天機命理</a>
+      <div class="nav-links">
+        <a href="bazi.html">八字排盤</a>
+        <a href="qimen.html">奇門遁甲</a>
+        <a href="name.html">姓名學</a>
+        <a href="daily.html" class="active">每日運勢</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <h1 class="page-title">⭐ 每日運勢</h1>
+    <p class="page-subtitle" id="today-date"></p>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('chinese')">🐉 十二生肖</button>
+      <button class="tab-btn" onclick="switchTab('western')">♈ 十二星座</button>
+    </div>
+
+    <!-- Zodiac selector -->
+    <div class="zodiac-selector" id="zodiac-selector"></div>
+
+    <!-- Fortune display -->
+    <div id="fortune-display"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。</p>
+  </footer>
+
+  <script src="js/lunar.js"></script>
+  <script src="js/daily.js"></script>
+  <script>
+    let currentType = 'chinese';
+    let currentSign = 0;
+
+    // Set today's date
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
+    document.getElementById('today-date').textContent = dateStr;
+
+    function switchTab(type) {
+      currentType = type;
+      currentSign = 0;
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (i===0 && type==='chinese') || (i===1 && type==='western'));
+      });
+      renderSelector();
+      renderFortune();
+    }
+
+    function renderSelector() {
+      const signs = currentType === 'chinese' ? DailyFortune.ZODIAC_SIGNS : DailyFortune.WESTERN_SIGNS;
+      const emojis = currentType === 'chinese' ? DailyFortune.ZODIAC_EMOJI : DailyFortune.WESTERN_EMOJI;
+      let html = '';
+      signs.forEach((s, i) => {
+        html += `<button class="zodiac-btn ${i===currentSign?'active':''}" onclick="selectSign(${i})">${emojis[i]} ${s}</button>`;
+      });
+      document.getElementById('zodiac-selector').innerHTML = html;
+    }
+
+    function selectSign(idx) {
+      currentSign = idx;
+      document.querySelectorAll('.zodiac-btn').forEach((btn, i) => btn.classList.toggle('active', i===idx));
+      renderFortune();
+    }
+
+    function renderFortune() {
+      const dateIso = today.toISOString().slice(0,10);
+      const fortune = DailyFortune.generate(currentSign, currentType, dateIso);
+
+      let html = `<div class="fortune-card">
+        <div style="font-size:3rem;">${fortune.emoji}</div>
+        <h3>${fortune.sign} · 今日運勢</h3>
+      </div>`;
+
+      fortune.aspects.forEach(a => {
+        const stars = '★'.repeat(a.stars) + '☆'.repeat(5 - a.stars);
+        html += `<div class="info-box">
+          <h4>${a.name}</h4>
+          <div class="fortune-stars">${stars}</div>
+          <p>${a.text}</p>
+        </div>`;
+      });
+
+      html += `<div class="info-box">
+        <h4>🍀 今日開運</h4>
+        <p>幸運色：<strong style="color:var(--gold)">${fortune.luckyColor}</strong>　
+        幸運數字：<strong style="color:var(--gold)">${fortune.luckyNumber}</strong>　
+        幸運方位：<strong style="color:var(--gold)">${fortune.luckyDirection}</strong></p>
+      </div>`;
+
+      // Share buttons
+      const shareText = encodeURIComponent(`${fortune.sign}今日運勢 ${'★'.repeat(fortune.ratings[0])}${'☆'.repeat(5-fortune.ratings[0])} - 天機命理`);
+      html += `<div style="text-align:center;margin-top:1rem;">
+        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?quote=${shareText}" target="_blank">📘 分享Facebook</a>
+        <a class="share-btn" href="https://line.me/R/msg/text/?${shareText}" target="_blank">💬 分享LINE</a>
+        <button class="share-btn" onclick="navigator.clipboard.writeText(decodeURIComponent('${shareText}')).then(()=>alert('已複製！'))">📋 複製文字</button>
+      </div>`;
+
+      document.getElementById('fortune-display').innerHTML = html;
+    }
+
+    renderSelector();
+    renderFortune();
+  </script>
+</body>
+</html>
