@@ -152,9 +152,26 @@
   <script src="js/daily.js"></script>
   <script src="js/global.js"></script>
   <script>
-    // Social proof counter
-    const count = Math.floor(Math.random() * 5000) + 3000;
-    document.getElementById('visitor-count').textContent = count.toLocaleString();
+    // Social proof counter - fixed per day, grows slowly over time
+    (function() {
+      const today = new Date().toLocaleDateString('zh-TW');
+      const stored = localStorage.getItem('fortune_visitor');
+      let data = stored ? JSON.parse(stored) : null;
+      if (!data || data.date !== today) {
+        // Base: launch date 2026-03-07, seed from date hash
+        const launch = new Date('2026-03-07');
+        const daysSince = Math.floor((new Date() - launch) / 86400000);
+        // Start small, grow ~50-150/day
+        const base = 127 + daysSince * Math.floor(80 + (daysSince % 7) * 10);
+        // Small random daily variance (but fixed for the day)
+        const dateHash = today.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+        const variance = (dateHash % 47) - 23;
+        const count = Math.max(base + variance, 50);
+        data = { date: today, count: count };
+        localStorage.setItem('fortune_visitor', JSON.stringify(data));
+      }
+      document.getElementById('visitor-count').textContent = data.count.toLocaleString();
+    })();
 
     // Daily flash - today's fortune brief
     (function() {
