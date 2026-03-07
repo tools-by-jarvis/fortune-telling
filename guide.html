@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 轉運指引 | 天機命理 - 紫微斗數×奇門遁甲 方位開運</title>
-  <meta name="description" content="結合紫微斗數與奇門遁甲，AI智慧分析最佳轉運方位與時機。45分鐘改變運勢，財運事業感情健康全方位提升。">
+  <title>大師轉運指引 | 天機命理 - 紫微斗數×奇門遁甲 方位開運</title>
+  <meta name="description" content="結合紫微斗數與奇門遁甲，專業命理最佳轉運方位與時機。45分鐘改變運勢，財運事業感情健康全方位提升。">
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* ===== Guide-specific styles ===== */
@@ -476,7 +476,7 @@
         <a href="index.html" class="site-logo">
           <span class="logo-icon">☯</span>
           天機命理
-          <span class="logo-sub">AI智慧分析</span>
+          <span class="logo-sub">專業命理</span>
         </a>
         <button class="nav-toggle" aria-label="選單">☰</button>
         <div class="nav-links">
@@ -496,8 +496,8 @@
 
     <!-- Hero -->
     <section class="guide-hero">
-      <h1>🧭 AI 轉運指引</h1>
-      <p class="tagline">結合紫微斗數 × 奇門遁甲，AI 為你找到最佳轉運方位與時機</p>
+      <h1>🧭 大師轉運指引</h1>
+      <p class="tagline">結合紫微斗數 × 奇門遁甲，為你找到最佳轉運方位與時機</p>
       <div class="master-ref">💎 靈感源自大師級 NT$13,000~50,600 的開運服務</div>
     </section>
 
@@ -582,7 +582,7 @@
         </div>
 
         <button class="btn btn-center" id="generate-btn" onclick="runGuide()">
-          🔮 開始 AI 轉運分析
+          🔮 開始轉運分析
         </button>
       </div>
 
@@ -674,12 +674,12 @@
         <!-- Action Buttons -->
         <div class="action-buttons">
           <button class="btn btn-outline btn-share" onclick="shareResult()">📤 分享結果</button>
-          <button class="btn btn-paid" onclick="showPaidModal()">🔓 解鎖完整 AI 大師解讀</button>
+          <button class="btn btn-paid" onclick="showPaidModal()">🔓 解鎖完整 大師解讀</button>
         </div>
 
         <!-- Paid CTA -->
         <div class="paid-cta">
-          <h3>✨ 解鎖完整 AI 大師解讀</h3>
+          <h3>✨ 解鎖完整 大師解讀</h3>
           <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1rem;">獲得更深層的命理分析與個人化轉運方案</p>
           <div class="paid-features">
             <div class="paid-feature"><span class="pf-icon">✦</span> 詳細命盤弱點分析</div>
@@ -716,7 +716,7 @@
 
     <footer class="site-footer">
       <p class="disclaimer">⚠️ 本網站僅供娛樂參考，不構成任何專業建議。命運掌握在自己手中。</p>
-      <p>© 2026 天機命理 | AI智慧命理分析平台</p>
+      <p>© 2026 天機命理 | 專業命理分析平台</p>
     </footer>
   </div>
 
@@ -724,7 +724,7 @@
   <div class="modal-overlay" id="paid-modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closePaidModal()">✕</button>
-      <h3 style="color:var(--magenta);font-family:'Noto Serif TC',serif;text-align:center;margin-bottom:1rem;">🔮 完整 AI 大師解讀</h3>
+      <h3 style="color:var(--magenta);font-family:'Noto Serif TC',serif;text-align:center;margin-bottom:1rem;">🔮 完整 大師解讀</h3>
       <p style="color:var(--text-secondary);text-align:center;margin-bottom:1.5rem;">此功能即將推出！搶先登記，享早鳥優惠。</p>
       <form class="signup-form" onsubmit="handleSignup(event)" style="max-width:100%;">
         <input type="email" placeholder="輸入 Email" required style="flex:1;">
@@ -905,10 +905,10 @@
 
     function shareResult() {
       if (!currentResult) return;
-      const text = `🧭 AI 轉運指引\n方位：往${currentResult.direction.name}方\n時段：${currentResult.shichen.label}\n利於：${currentResult.benefits.join('、')}\n\n立即體驗 👉 ${location.href}`;
+      const text = `🧭 大師轉運指引\n方位：往${currentResult.direction.name}方\n時段：${currentResult.shichen.label}\n利於：${currentResult.benefits.join('、')}\n\n立即體驗 👉 ${location.href}`;
       
       if (navigator.share) {
-        navigator.share({ title: 'AI 轉運指引', text });
+        navigator.share({ title: '大師轉運指引', text });
       } else {
         navigator.clipboard.writeText(text).then(() => {
           alert('已複製到剪貼簿！');
