@@ -328,6 +328,11 @@
           <textarea id="fQuestion" rows="2" placeholder="例：今年適合換工作嗎？感情何時會有好消息？"></textarea>
         </div>
 
+        <div class="form-group" id="addressGroup">
+          <label>居住地址 *（奇門遁甲改運必填，用於方位推算）</label>
+          <input type="text" id="fAddress" placeholder="例：台北市信義區松仁路100號">
+        </div>
+
         <button type="submit" class="buy-btn" id="submitBtn">前往綠界付款 →</button>
       </form>
     </div>
@@ -380,6 +385,7 @@
       var birthDay = document.getElementById('fBirthDay').value;
       var birthHour = document.getElementById('fBirthHour').value;
       var question = document.getElementById('fQuestion').value.trim();
+      var address = document.getElementById('fAddress').value.trim();
 
       if (!email || !name || !gender || !birthYear || !birthMonth || !birthDay || !birthHour) {
         alert('請填寫所有必填欄位');
@@ -392,7 +398,8 @@
         'Email: ' + email + '\n' +
         '性別: ' + (gender === 'male' ? '男' : '女') + '\n' +
         '出生: ' + birthYear + '/' + birthMonth + '/' + birthDay + ' ' + getHourText(birthHour) + '\n' +
-        (question ? '問題: ' + question : '');
+        (question ? '問題: ' + question : '') +
+        (address ? '\n居住地址: ' + address : '');
 
       // 將訂單資料存到 localStorage（付款返回時顯示成功訊息）
       localStorage.setItem('tj_pending_order', JSON.stringify({
@@ -428,7 +435,8 @@
             name: name,
             gender: gender,
             birthData: birthYear + '/' + birthMonth + '/' + birthDay + '/' + birthHour,
-            question: question
+            question: question,
+            address: address
           })
         })
         .then(function(r) { return r.json(); })
