@@ -1,208 +1,473 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>付費命理服務 | 天機命理</title>
-  <meta name="description" content="天機命理付費服務：個人命盤解讀、專題深入分析、年度完整規劃、命理諮詢、奇門遁甲改運。專業深度分析，為您量身打造命理指引。">
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .products { max-width:1200px; margin:2rem auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; padding:0 1rem; }
-    .product-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:2rem 1.5rem; text-align:center; transition:var(--transition); position:relative; overflow:hidden; display:flex; flex-direction:column; }
-    .product-card:hover { background:var(--bg-card-hover); border-color:var(--border-glow); box-shadow:var(--glow-gold); transform:translateY(-4px); }
-    .product-card.popular { border-color:var(--gold); }
-    .product-card.popular::before { content:"🔥 最多人選"; position:absolute; top:16px; right:-32px; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#000; font-size:0.7rem; font-weight:700; padding:0.25rem 2.8rem; transform:rotate(45deg); z-index:2; }
-    .product-card.new-service { border-color:var(--cyan); }
-    .product-card.new-service::before { content:"✨ 新服務"; position:absolute; top:16px; right:-32px; background:linear-gradient(135deg,var(--cyan),#0077b6); color:#fff; font-size:0.7rem; font-weight:700; padding:0.25rem 2.8rem; transform:rotate(45deg); z-index:2; }
-    .product-icon { font-size:3rem; margin-bottom:0.8rem; }
-    .product-title { font-family:'Noto Serif TC',serif; font-size:1.3rem; color:var(--gold); margin-bottom:0.5rem; }
-    .product-price { font-size:2rem; font-weight:900; color:var(--gold-light); margin:0.8rem 0; }
-    .product-price .currency { font-size:1rem; font-weight:400; }
-    .product-desc { color:var(--text-secondary); font-size:0.9rem; line-height:2; text-align:left; margin-bottom:1.5rem; padding:0; flex-grow:1; }
-    .product-desc li { margin-bottom:0.3rem; list-style:none; }
-    .buy-btn { display:inline-block; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#000; font-weight:700; font-size:1rem; padding:0.8rem 2.5rem; border-radius:50px; border:none; cursor:pointer; transition:var(--transition); text-decoration:none; width:100%; box-sizing:border-box; }
-    .buy-btn:hover { transform:scale(1.05); box-shadow:0 0 20px rgba(255,215,0,0.4); }
-    .buy-btn.cyan-btn { background:linear-gradient(135deg,var(--cyan),#0077b6); color:#fff; }
-    .buy-btn.cyan-btn:hover { box-shadow:0 0 20px rgba(0,200,255,0.4); }
-    .buy-btn.red-btn { background:linear-gradient(135deg,#e74c3c,#c0392b); color:#fff; }
-    .buy-btn.red-btn:hover { box-shadow:0 0 20px rgba(231,76,60,0.4); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天機命理 ─ 付費服務方案</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap');
 
-    .page-title { text-align:center; padding:2rem 1rem 0; }
-    .page-title h1 { font-family:'Noto Serif TC',serif; font-size:2rem; color:var(--gold); }
-    .page-title p { color:var(--text-secondary); margin-top:0.5rem; font-size:0.95rem; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    .section-title { text-align:center; margin:3rem 1rem 0.5rem; }
-    .section-title h2 { font-family:'Noto Serif TC',serif; font-size:1.6rem; color:var(--gold); }
-    .section-title p { color:var(--text-secondary); margin-top:0.5rem; font-size:0.9rem; }
+body {
+  font-family: 'Noto Serif TC', serif;
+  background: #0a0a0f;
+  color: #e8e0d0;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(40,30,50,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(30,25,45,0.4) 0%, transparent 50%);
+}
 
-    .combo-section { max-width:800px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; padding:0 1rem; }
+/* Ink wash texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 85%, rgba(60,50,40,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(50,40,60,0.12) 0%, transparent 35%);
+  pointer-events: none;
+  z-index: 0;
+}
 
-    .red-notice { background:rgba(231,76,60,0.15); border:1px solid rgba(231,76,60,0.4); border-radius:8px; padding:0.6rem 1rem; margin-top:0.8rem; margin-bottom:1rem; font-size:0.85rem; color:#e74c3c; text-align:center; }
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
 
-    .guarantee { text-align:center; color:var(--text-muted); font-size:0.8rem; margin:2rem auto; max-width:700px; padding:1rem; line-height:1.8; }
-    .guarantee span { color:var(--gold); }
+/* Header */
+.page-header {
+  text-align: center;
+  padding: 50px 0 30px;
+}
 
-    .process-steps { max-width:800px; margin:2rem auto; display:flex; justify-content:center; gap:0; padding:0 1rem; flex-wrap:wrap; }
-    .step { text-align:center; flex:1; min-width:120px; position:relative; padding:0 0.5rem; }
-    .step-num { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#000; font-weight:700; font-size:0.9rem; margin-bottom:0.5rem; }
-    .step-text { color:var(--text-secondary); font-size:0.8rem; }
-    .step-arrow { color:var(--gold); font-size:1.2rem; line-height:36px; }
+.page-header h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #c9a84c, #f0d878, #c9a84c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+}
 
-    .combo-badge { display:inline-block; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#000; font-size:0.75rem; font-weight:700; padding:0.3rem 1rem; border-radius:20px; margin-bottom:1rem; }
+.page-header .subtitle {
+  font-size: 1.1rem;
+  color: #8a7e6b;
+  letter-spacing: 3px;
+}
 
-    @media(max-width:600px) {
-      .products { grid-template-columns:1fr; }
-      .combo-section { grid-template-columns:1fr; }
-      .process-steps { flex-direction:column; align-items:center; }
-      .step-arrow { transform:rotate(90deg); }
-    }
-  </style>
+/* Section dividers */
+.section {
+  margin-top: 50px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f0d878;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  margin: 14px auto 0;
+}
+
+.section-warning {
+  text-align: center;
+  color: #ff6b6b;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.divider {
+  width: 80%;
+  max-width: 600px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c55, #c9a84c, #c9a84c55, transparent);
+  margin: 60px auto 20px;
+}
+
+/* Card grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 20px;
+}
+
+/* Card base */
+.card {
+  background: linear-gradient(145deg, #16141e, #1a1825);
+  border: 1px solid #2a2538;
+  border-radius: 16px;
+  padding: 32px 28px 28px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c9a84c, #f0d878, #c9a84c);
+  opacity: 0.6;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(201,168,76,0.12);
+}
+
+/* Gold highlight card (年度諮詢會員) */
+.card.gold {
+  border: 2px solid #c9a84c;
+  background: linear-gradient(145deg, #1e1a10, #1a1825);
+  box-shadow: 0 0 30px rgba(201,168,76,0.15), inset 0 0 60px rgba(201,168,76,0.03);
+}
+
+.card.gold::before {
+  height: 4px;
+  opacity: 1;
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.badge.popular {
+  background: linear-gradient(135deg, #ff6b35, #ff4444);
+  color: #fff;
+}
+
+.badge.vip {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+}
+
+.badge.best-value {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff;
+}
+
+.badge.vip-royal {
+  background: linear-gradient(135deg, #c9a84c, #f0d878);
+  color: #1a1825;
+}
+
+.badge.gateway {
+  background: linear-gradient(135deg, #c9a84c, #f0d878);
+  color: #1a1825;
+  font-size: 0.72rem;
+}
+
+/* Card content */
+.card-plan {
+  font-size: 0.9rem;
+  color: #8a7e6b;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+
+.card-name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #f0d878;
+  margin-bottom: 12px;
+}
+
+.card-price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e8e0d0;
+  margin-bottom: 20px;
+}
+
+.card-price .unit {
+  font-size: 0.9rem;
+  color: #8a7e6b;
+  font-weight: 400;
+}
+
+.card-features {
+  list-style: none;
+  margin-bottom: 24px;
+}
+
+.card-features li {
+  padding: 6px 0;
+  font-size: 0.95rem;
+  color: #c4b898;
+  line-height: 1.6;
+}
+
+.card-note {
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  padding: 8px 12px;
+  background: rgba(255,107,107,0.08);
+  border-radius: 8px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.card-note.gold-note {
+  color: #f0d878;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.25);
+}
+
+/* CTA Button */
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s;
+  background: linear-gradient(135deg, #c9a84c, #a8893a);
+  color: #1a1825;
+}
+
+.cta-btn:hover {
+  background: linear-gradient(135deg, #f0d878, #c9a84c);
+  box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 70px;
+  padding: 30px 0;
+  border-top: 1px solid #2a2538;
+}
+
+.footer p {
+  color: #8a7e6b;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.footer a {
+  color: #f0d878;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer a:hover { text-decoration: underline; }
+
+.footer .disclaimer {
+  font-size: 0.82rem;
+  color: #5a5346;
+  margin-top: 18px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .page-header h1 { font-size: 1.9rem; letter-spacing: 3px; }
+  .section-title { font-size: 1.5rem; }
+  .cards { grid-template-columns: 1fr; gap: 22px; }
+  .card { padding: 26px 22px 24px; }
+  .card-price { font-size: 1.7rem; }
+  .container { padding: 20px 14px 40px; }
+}
+</style>
 </head>
 <body>
-  <canvas id="starfield"></canvas>
-  <div class="page-wrap">
-    <header class="site-header">
-      <nav>
-        <a href="index.html" class="site-logo"><span class="logo-icon">☯</span>天機命理<span class="logo-sub">專業命理</span></a>
-        <button class="nav-toggle" aria-label="選單">☰</button>
-        <div class="nav-links">
-          <a href="guide.html">轉運指引</a>
-          <a href="ziwei.html">紫微斗數</a>
-          <a href="bazi.html">八字排盤</a>
-          <a href="qimen.html">奇門遁甲</a>
-          <a href="name.html">姓名學</a>
-          <a href="daily.html">每日運勢</a>
-          <a href="paid-report.html" style="color:var(--gold);font-weight:700;">付費服務 ✦</a>
-          <div class="header-controls">
-            <button class="ctrl-btn" id="theme-toggle" title="切換主題">☀️</button>
-            <button class="ctrl-btn" id="music-toggle" title="背景音樂">🔇</button>
-          </div>
-        </div>
-      </nav>
-    </header>
 
-    <div id="mainPage">
-      <section class="page-title">
-        <h1>✦ 專業命理服務方案 ✦</h1>
-        <p>千年命理智慧，為您量身打造命理指引</p>
-      </section>
+<div class="container">
 
-      <!-- 購買流程 -->
-      <div class="process-steps">
-        <div class="step"><div class="step-num">1</div><div class="step-text">選擇方案</div></div>
-        <div class="step-arrow">→</div>
-        <div class="step"><div class="step-num">2</div><div class="step-text">IG 私訊預約</div></div>
-        <div class="step-arrow">→</div>
-        <div class="step"><div class="step-num">3</div><div class="step-text">提供資料</div></div>
-        <div class="step-arrow">→</div>
-        <div class="step"><div class="step-num">4</div><div class="step-text">收到報告</div></div>
+  <!-- Header -->
+  <header class="page-header">
+    <h1>天機命理</h1>
+    <p class="subtitle">── 付費服務方案 ──</p>
+  </header>
+
+  <!-- Section 1: 基礎命理報告 -->
+  <section class="section">
+    <h2 class="section-title">📊 命理報告服務</h2>
+    <div class="cards">
+
+      <!-- 方案 A -->
+      <div class="card">
+        <div class="card-plan">方案 A</div>
+        <div class="card-name">個人命盤解讀</div>
+        <div class="card-price">NT$299</div>
+        <ul class="card-features">
+          <li>🔮 完整八字命盤 + 白話解讀</li>
+          <li>✨ 天賦強項分析</li>
+          <li>📊 未來 3 年運勢走向</li>
+          <li>📄 PDF 報告 24hr 內寄出</li>
+        </ul>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
       </div>
 
-      <!-- ===== 方案一～三：命理分析服務 ===== -->
-      <section class="products">
-        <!-- 方案一：個人命盤解讀 NT$299 -->
-        <div class="product-card">
-          <div class="product-icon">🔮</div>
-          <div class="product-title">個人命盤解讀</div>
-          <div class="product-price"><span class="currency">NT$</span>299</div>
-          <ul class="product-desc">
-            <li>🔮 完整八字命盤 + 白話解讀</li>
-            <li>✨ 天賦強項分析</li>
-            <li>📊 未來 3 年運勢走向</li>
-            <li>📄 PDF 報告 24hr 內寄出</li>
-          </ul>
-          <a href="https://ig.me/m/tianji_mingli" target="_blank" class="buy-btn">立即預約 NT$299</a>
-        </div>
-
-        <!-- 方案二：專題深入分析 NT$599 -->
-        <div class="product-card popular">
-          <div class="product-icon">🎯</div>
-          <div class="product-title">專題深入分析</div>
-          <div class="product-price"><span class="currency">NT$</span>599</div>
-          <ul class="product-desc">
-            <li>🔮 包含完整命盤解讀</li>
-            <li>🎯 選一主題深入：感情 / 事業 / 財運</li>
-            <li>💡 針對你的問題給具體建議</li>
-            <li>📄 PDF 報告 24hr 內寄出</li>
-          </ul>
-          <a href="https://ig.me/m/tianji_mingli" target="_blank" class="buy-btn">立即預約 NT$599</a>
-        </div>
-
-        <!-- 方案三：年度完整規劃 NT$1,299 -->
-        <div class="product-card">
-          <div class="product-icon">📅</div>
-          <div class="product-title">年度完整規劃</div>
-          <div class="product-price"><span class="currency">NT$</span>1,299</div>
-          <ul class="product-desc">
-            <li>🔮 完整命盤 + 12 個月流年分析</li>
-            <li>📅 每月運勢重點提醒</li>
-            <li>🧭 開運方位 + 幸運色建議</li>
-            <li>⏰ 重大決策最佳時間點</li>
-          </ul>
-          <a href="https://ig.me/m/tianji_mingli" target="_blank" class="buy-btn">立即預約 NT$1,299</a>
-        </div>
-      </section>
-
-      <!-- ===== 方案四＋五：推薦搭配區塊 ===== -->
-      <section class="section-title" style="margin-top:2.5rem;">
-        <h2>⚡ 推薦搭配 — 諮詢 + 改運 ⚡</h2>
-        <p>先諮詢、再改運，效果最佳！諮詢費可全額折抵改運服務</p>
-        <div style="margin-top:0.8rem;"><span class="combo-badge">🔗 搭配購買 諮詢費全額折抵</span></div>
-      </section>
-
-      <section class="combo-section" style="margin-top:1.5rem; margin-bottom:2rem;">
-        <!-- 方案四：命理諮詢 NT$1,500 -->
-        <div class="product-card new-service">
-          <div class="product-icon">💬</div>
-          <div class="product-title">命理諮詢</div>
-          <div class="product-price"><span class="currency">NT$</span>1,500</div>
-          <ul class="product-desc">
-            <li>💬 一對一線上諮詢 30 分鐘</li>
-            <li>🎯 針對你的問題深入討論</li>
-            <li>🤔 適合：人生方向、重大決策</li>
-            <li>💡 諮詢費可折抵改運服務</li>
-          </ul>
-          <a href="https://ig.me/m/tianji_mingli" target="_blank" class="buy-btn cyan-btn">預約諮詢 NT$1,500</a>
-        </div>
-
-        <!-- 方案五：奇門遁甲改運 NT$2,999 -->
-        <div class="product-card" style="border-color:#e74c3c;">
-          <div class="product-icon">⚡</div>
-          <div class="product-title">奇門遁甲改運</div>
-          <div class="product-price"><span class="currency">NT$</span>2,999</div>
-          <ul class="product-desc">
-            <li>🔮 依據你的問題專業起盤</li>
-            <li>📋 改運指令書：時間、方位、行動</li>
-            <li>💰 適合：求財、求職、談判、重大決策</li>
-          </ul>
-          <div class="red-notice">⚠️ 需先完成命理諮詢（NT$1,500），諮詢費可折抵</div>
-          <div style="background:rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.3); border-radius:8px; padding:0.8rem 1rem; margin-bottom:1rem; font-size:0.85rem; color:var(--text-secondary); text-align:center; line-height:1.8;">
-            💡 <strong style="color:var(--gold);">搭配流程</strong><br>
-            諮詢 NT$1,500 → 改運 NT$2,999（已含諮詢費）<br>
-            <strong style="color:var(--gold-light); font-size:1rem;">實際總費用 NT$2,999</strong>
-          </div>
-          <a href="https://ig.me/m/tianji_mingli" target="_blank" class="buy-btn red-btn">預約改運 NT$2,999</a>
-        </div>
-      </section>
-
-      <div class="guarantee">
-        <span>💬</span> 所有服務皆透過 Instagram 私訊預約與溝通<br>
-        <span>📄</span> 報告類服務於付款確認後 24 小時內以 PDF 寄出<br>
-        <span>🔒</span> 您的個人資料僅用於命理分析，絕不外洩<br>
-        <span>📧</span> 有任何問題歡迎 <a href="https://ig.me/m/tianji_mingli" target="_blank" style="color:var(--cyan);">IG 私訊</a> 聯繫
+      <!-- 方案 B -->
+      <div class="card">
+        <span class="badge popular">🔥 最多人選</span>
+        <div class="card-plan">方案 B</div>
+        <div class="card-name">專題深入分析</div>
+        <div class="card-price">NT$599</div>
+        <ul class="card-features">
+          <li>🔮 包含完整命盤解讀</li>
+          <li>🎯 選一主題深入：感情 / 事業 / 財運</li>
+          <li>💡 針對你的問題給具體建議</li>
+          <li>📄 PDF 報告 24hr 內寄出</li>
+        </ul>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
       </div>
+
+      <!-- 方案 C -->
+      <div class="card">
+        <div class="card-plan">方案 C</div>
+        <div class="card-name">年度完整規劃</div>
+        <div class="card-price">NT$1,299</div>
+        <ul class="card-features">
+          <li>🔮 完整命盤 + 12 個月流年分析</li>
+          <li>📅 每月運勢重點提醒</li>
+          <li>🧭 開運方位 + 幸運色建議</li>
+          <li>⏰ 重大決策最佳時間點</li>
+        </ul>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
     </div>
+  </section>
 
-    <footer class="site-footer">
-      <p>© 2026 天機命理 ✦ 僅供參考，不構成任何決策建議</p>
-    </footer>
-  </div>
+  <!-- Divider -->
+  <div class="divider"></div>
 
-  <script src="js/starfield.js"></script>
-  <script>
-    // Nav toggle
-    var t = document.querySelector('.nav-toggle');
-    if (t) t.addEventListener('click', function() { document.querySelector('.nav-links').classList.toggle('open'); });
-  </script>
+  <!-- Section 2: 進階改運服務 -->
+  <section class="section">
+    <h2 class="section-title">🔮 進階改運服務</h2>
+    <p class="section-warning">⚠️ 所有改運服務需先加入年度諮詢會員（NT$4,500/年）</p>
+    <div class="cards">
+
+      <!-- 方案 1：年度諮詢會員 -->
+      <div class="card gold">
+        <span class="badge gateway">⭐ 入門門檻</span>
+        <div class="card-plan">方案 1</div>
+        <div class="card-name">年度諮詢會員</div>
+        <div class="card-price">NT$4,500<span class="unit"> / 年</span></div>
+        <div class="card-note gold-note">🎯 購買任何改運服務前，需先加入年度諮詢會員</div>
+        <ul class="card-features">
+          <li>🎯 進階改運服務的入場券</li>
+          <li>📋 完整命盤深度解讀</li>
+          <li>💬 全年不限次數命理諮詢</li>
+          <li>📊 每月運勢提醒與建議</li>
+        </ul>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
+      <!-- 方案 2：日盤/時盤改運 -->
+      <div class="card">
+        <span class="badge vip">VIP</span>
+        <div class="card-plan">方案 2</div>
+        <div class="card-name">奇門遁甲・日盤/時盤改運</div>
+        <div class="card-price">NT$25,000<span class="unit"> / 次</span></div>
+        <ul class="card-features">
+          <li>🔮 最精準的改運方式</li>
+          <li>📋 專屬改運指令書</li>
+          <li>💰 適合重大決策：大額交易、訴訟、談判</li>
+          <li>🤝 可選事成收費 8%</li>
+        </ul>
+        <div class="card-note">⚠️ 需先加入年度諮詢會員</div>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
+      <!-- 方案 3：月盤改運 -->
+      <div class="card">
+        <span class="badge best-value">✨ 最超值</span>
+        <div class="card-plan">方案 3</div>
+        <div class="card-name">奇門遁甲・月盤改運</div>
+        <div class="card-price">NT$3,200<span class="unit"> / 月</span></div>
+        <ul class="card-features">
+          <li>🔮 每月專屬改運指導</li>
+          <li>📋 月度改運指令書</li>
+          <li>🧭 最佳方位 + 時機建議</li>
+          <li>💡 適合持續提升運勢</li>
+        </ul>
+        <div class="card-note">⚠️ 需先加入年度諮詢會員</div>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
+      <!-- 方案 4：年盤改運 -->
+      <div class="card">
+        <div class="card-plan">方案 4</div>
+        <div class="card-name">奇門遁甲・年盤改運</div>
+        <div class="card-price">NT$6,800<span class="unit"> / 年</span></div>
+        <ul class="card-features">
+          <li>🔮 年度大方向改運佈局</li>
+          <li>📋 全年改運策略規劃</li>
+          <li>🧭 年度重要方位指引</li>
+          <li>📅 關鍵月份特別提醒</li>
+        </ul>
+        <div class="card-note">⚠️ 需先加入年度諮詢會員</div>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
+      <!-- 方案 5：包年月盤尊榮 -->
+      <div class="card">
+        <span class="badge vip-royal">👑 VIP尊榮</span>
+        <div class="card-plan">方案 5</div>
+        <div class="card-name">包年月盤・尊榮方案</div>
+        <div class="card-price">NT$38,400<span class="unit"> / 年</span></div>
+        <ul class="card-features">
+          <li>🔮 12 個月 × 月盤改運（原價 $38,400）</li>
+          <li>📋 每月專屬改運指令書</li>
+          <li>💬 優先諮詢服務</li>
+          <li>🎁 加贈年盤改運（價值 $6,800）</li>
+        </ul>
+        <div class="card-note">⚠️ 需先加入年度諮詢會員</div>
+        <a class="cta-btn" href="https://ig.me/m/tianji_mingli" target="_blank">立即諮詢</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>📩 付款方式請私訊洽詢</p>
+    <p>IG: <a href="https://instagram.com/tianji_mingli" target="_blank">@tianji_mingli</a></p>
+    <p class="disclaimer">天機命理 ── 以數理解命，以智慧改運</p>
+  </footer>
+
+</div>
+
 </body>
 </html>
