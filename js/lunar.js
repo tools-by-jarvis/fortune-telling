@@ -82,7 +82,7 @@ const Lunar = (() => {
     const marchEquinox = _marchEquinoxJD(year);
     // Each degree ≈ 1.014 days (mean)
     let offset = targetAngle;
-    if (offset > 180) offset -= 360;
+    if (offset > 270) offset -= 360;
     const approxJD = marchEquinox + offset * 365.25 / 360;
 
     return approxJD;
@@ -281,7 +281,7 @@ const Lunar = (() => {
     // 2000-01-01 JD=2451545, dayIdx=(2451545+55)%60 = 2451600%60 = 0 → 甲子
     // So 2000-01-01 is 甲子日. Let me verify... Actually this is approximately correct for our purposes.
 
-    const dayIdx = ((jd + 55) % 60 + 60) % 60;
+    const dayIdx = ((jd + 49) % 60 + 60) % 60;
     return { ganIdx: dayIdx % 10, zhiIdx: dayIdx % 12, text: JIA_ZI_60[dayIdx] };
   }
 
