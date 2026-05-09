@@ -55,7 +55,7 @@ const BaZi = (() => {
       pillars, wuxing, dayMaster, dayMasterWx,
       strength, tenGods, hiddenStems, naYins,
       yongShen, daYun, interpretation,
-      zodiac: Lunar.zodiac(year),
+      zodiac: Lunar.SHENG_XIAO[pillars[0].zhiIdx],
       shiChen: Lunar.shiChenName(hour)
     };
   }
